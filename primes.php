@@ -36,7 +36,7 @@ $periodTime = getenv('RUN_TIME');
 
 $res = array();
 
-while ((time() - $startTime) < $periodTime) {
+for ($i = 0; $i < 30; $i++) {
 	$res = get_primes7(10000000);
 	print "Found ".count($res)." prime numbers.\n";
 }

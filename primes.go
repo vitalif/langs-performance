@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
-	"time"
 )
 
 func getPrimes7(n int) []int {
@@ -49,12 +47,8 @@ func getPrimes7(n int) []int {
 }
 
 func main() {
-	var startTime = time.Now()
-	var periodTime, _ = time.ParseDuration(os.Getenv("RUN_TIME") + "s")
-
 	var res []int
-
-	for time.Since(startTime) < periodTime {
+	for i := 0; i < 30; i++ {
 		res = getPrimes7(10000000)
 		fmt.Printf("Found %d prime numbers.\n", len(res))
 	}

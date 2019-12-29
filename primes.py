@@ -2,7 +2,6 @@ import os
 import sys
 import time
 
-
 def get_primes7(n):
 	"""
 	standard optimized sieve algorithm to get a list of prime numbers
@@ -33,9 +32,6 @@ def get_primes7(n):
 		m = 2 * i + 3
 	return [2] + [x for x in s if x]
 
-start_time = int(time.time())
-period_time = int(os.environ['RUN_TIME'])
-
-while (int(time.time()) - start_time) < period_time:
+for i in range(0, 30):
 	res = get_primes7(10000000)
 	print("Found {} prime numbers.".format(len(res)))
