@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import platform
 
 def get_primes7(n):
 	"""
@@ -32,6 +33,17 @@ def get_primes7(n):
 		m = 2 * i + 3
 	return [2] + [x for x in s if x]
 
-for i in range(0, 30):
+start_time = time.time()
+period_time = int(os.environ.get('RUN_TIME', '5'))
+iterations = 0
+
+while (time.time() - start_time) < period_time or iterations < 3:
 	res = get_primes7(10000000)
 	print("Found {} prime numbers.".format(len(res)))
+	iterations = iterations + 1
+
+result_time = time.time() - start_time
+
+print("%s %d.%d.%d: %d iterations in %.02f sec = %.02f sec per 30 iterations" % (
+	platform.python_implementation(), sys.version_info.major, sys.version_info.minor, sys.version_info.micro,
+	iterations, result_time, result_time/iterations*30))

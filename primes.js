@@ -39,9 +39,13 @@ function get_primes7(n) {
 }
 
 var startTime = Date.now();
-var periodTime = parseInt(process.env.RUN_TIME, 10) * 1000
-
-for (var i = 0; i < 30; i++) {
+var periodTime = parseInt(process.env.RUN_TIME || '5', 10) * 1000;
+var iterations = 0;
+while ((Date.now() - startTime) < periodTime || iterations < 3) {
 	var res = get_primes7(10000000);
 	console.log("Found " + res.length + " prime numbers.");
+	iterations++;
 }
+var time = Date.now() - startTime;
+var per30 = time / 1000 / iterations * 30;
+console.log(iterations + " iterations in "+(Math.round(time/10)/100)+" seconds = "+(Math.round(per30*100)/100)+" seconds per 30 iterations");

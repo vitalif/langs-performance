@@ -44,13 +44,24 @@ class PrimeNumbersGenerator {
 class PrimeNumbersBenchmarkApp {
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		long periodTime = Long.parseLong(System.getenv("RUN_TIME"), 10) * 1000;
+		String periodTimeStr = System.getenv("RUN_TIME");
+		if (periodTimeStr == null)
+			periodTimeStr = "5";
+		long periodTime = Long.parseLong(periodTimeStr, 10) * 1000;
 
 		ArrayList<Integer> res;
 
-		while ((System.currentTimeMillis() - startTime) < periodTime) {
+		int iterations = 0;
+		while ((System.currentTimeMillis() - startTime) < periodTime || iterations < 3) {
 			res = (new PrimeNumbersGenerator()).get_primes7(10000000);
 			System.out.format("Found %d prime numbers.\n", res.size());
+			iterations++;
 		}
+		long time = (System.currentTimeMillis() - startTime);
+		double per30 = time / 1000.0 / iterations * 30;
+		System.out.println(
+			"Java: "+iterations+" iterations in "+(Math.round(time/10.0)/100.0)+
+			" seconds = "+(Math.round(per30*100)/100.0)+" seconds per 30 iterations"
+		);
 	}
 }

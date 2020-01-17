@@ -43,19 +43,25 @@ fn get_primes7(count: u32) -> Vec<u32> {
 }
 
 fn main() {
-//    let run_time_secs = match env::var("RUN_TIME") {
-//        Ok(v) => match v.parse::<u32>() {
-//            Ok(i) => i,
-//            Err(err) => panic!("RUN_TIME environment variable error: {}", err),
-//        },
-//        Err(err) => panic!("RUN_TIME environment variable error: {}", err),
-//    };
+    let run_time_secs = match env::var("RUN_TIME") {
+        Ok(v) => match v.parse::<u32>() {
+            Ok(i) => i,
+            Err(err) => panic!("RUN_TIME environment variable error: {}", err),
+        },
+        Err(_err) => 5,
+    };
 
-//    let run_time = Duration::new(run_time_secs as u64, 0);
-//    let start = Instant::now();
+    let run_time = Duration::new(run_time_secs as u64, 0);
+    let start = Instant::now();
 
-    for x in 0..29 {
+    let mut iterations = 3;
+    while start.elapsed() < run_time || iterations < 3 {
         let primes = get_primes7(PRIMES_COUNT);
         println!("Found {} prime numbers.", primes.len());
+        iterations += 1;
     }
+    let dur = start.elapsed();
+    let result_time = dur.as_secs() as f64 + (dur.subsec_millis() as f64) / 1000.0;
+    println!("Rust: {} iterations in {:.2} sec = {:.2} sec per 30 iterations",
+        iterations, result_time, result_time / (iterations as f64) * 30.0);
 }

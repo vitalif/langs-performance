@@ -61,11 +61,18 @@ void get_primes7(int n, vector<int> &res) {
 }
 
 int main() {
-	for (int i = 0; i < 30; i++) {
+	std::time_t startTime = std::time(NULL);
+	char *periodTimeStr = std::getenv("RUN_TIME");
+	std::time_t periodTime = (std::time_t)(periodTimeStr ? atoi(periodTimeStr) : 3);
+	int iterations = 0;
+	while ((std::time(NULL) - startTime) < periodTime || iterations < 3) {
 		vector<int> res;
 		get_primes7(10000000, res);
 		printf("Found %d prime numbers.\n", (int)res.size());
+		iterations++;
 	}
-
+	double time = (std::time(NULL) - startTime);
+	printf("C++: %d iterations in %.02f seconds = %.02f seconds per 30 iterations\n",
+		iterations, time, time/iterations*30);
 	return 0;
 }

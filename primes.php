@@ -32,11 +32,19 @@ function get_primes7($n) {
 }
 
 $startTime = time();
-$periodTime = getenv('RUN_TIME');
+$periodTime = getenv('RUN_TIME') ?: 5;
 
 $res = array();
 
-for ($i = 0; $i < 30; $i++) {
+$iterations = 0;
+$start = microtime(true);
+while ((microtime(true) - $start) < $periodTime || $iterations < 3) {
 	$res = get_primes7(10000000);
 	print "Found ".count($res)." prime numbers.\n";
+	$iterations++;
 }
+$time = microtime(true) - $start;
+printf(
+	"PHP: %d iterations in %.02f seconds = %.02f seconds per 30 iterations\n",
+	$iterations, $time, $time/$iterations*30
+);

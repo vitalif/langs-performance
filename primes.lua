@@ -36,9 +36,6 @@ function get_primes7(n)
 	return res
 end
 
-startTime = os.time(os.date("!*t"))
-periodTime = os.getenv('RUN_TIME')
-
 for i = 1, 30 do
 	local res = get_primes7(10000000)
 	print("Found " .. #res .. " prime numbers.")
