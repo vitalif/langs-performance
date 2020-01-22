@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use Time::HiRes qw(time);
 
 sub get_primes7($) {
 	my ($n) = @_;
@@ -36,11 +37,16 @@ sub get_primes7($) {
 }
 
 my $startTime = time();
-my $periodTime = $ENV{'RUN_TIME'};
+my $periodTime = $ENV{RUN_TIME} || 5;
 
 my @res;
-
-while ((time() - $startTime) < $periodTime) {
+my $iterations = 0;
+while ((time() - $startTime) < $periodTime || $iterations < 3) {
 	@res = get_primes7(10000000);
 	print "Found ".(scalar @res)." prime numbers.\n";
+	$iterations++;
 }
+
+my $resultTime = time() - $startTime;
+printf("Perl: %d iterations in %.03f seconds = %.03f seconds per 30 iterations\n",
+	$iterations, $resultTime, $resultTime/$iterations*30);

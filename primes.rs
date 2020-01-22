@@ -1,3 +1,5 @@
+// rustc -O -o primes_rs primes.rs; ./primes_rs
+
 use std::env;
 use std::time::{Instant, Duration};
 
