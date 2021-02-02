@@ -60,7 +60,7 @@ class PrimeNumbersBenchmarkApp {
 		long time = (System.currentTimeMillis() - startTime);
 		double per30 = time / 1000.0 / iterations * 30;
 		System.out.println(
-			"Java: "+iterations+" iterations in "+(Math.round(time/10.0)/100.0)+
+			"Java (ArrayList): "+iterations+" iterations in "+(Math.round(time/10.0)/100.0)+
 			" seconds = "+(Math.round(per30*100)/100.0)+" seconds per 30 iterations"
 		);
 	}
